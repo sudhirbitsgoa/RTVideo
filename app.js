@@ -153,7 +153,9 @@ app.post('/api/videos',
     url = '/files/' + fileName.digest('hex') + '.webm';
     filePath = path.join(__dirname, 'public' + url);
 
-    args = ['-i', 'pipe:0', '-f', 'webm', 'pipe:1'];
+    args = ['-i', 'pipe:0', '-f', 'webm', '-threads', '2', '-s', 'hd480',
+            '-ab', '96k', '-vb', '600k', 'pipe:1'];
+
     avconv = spawn('avconv', args);
     output = fs.createWriteStream(filePath);
 
