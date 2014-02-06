@@ -1,0 +1,47 @@
+@import "../bower_components/bootstrap/dist/css/bootstrap.css";
+
+body {
+  background #fafafa;
+}
+.app-content {
+  width: 960px;
+  margin: 20px auto;
+}
+.new-user,
+.api-key,
+.signin {
+  width: 460px;
+  margin: 20px auto;
+  padding: 10px;
+}
+.remove {
+  display: block;
+  cursor: pointer;
+  position: absolute;
+  right: 7px;
+  top: 5px;
+}
+.upload {
+  width: 460px;
+  position: fixed;
+  margin: 0 auto;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  -o-transition: -o-transform 200ms ease-in-out;
+  transition: -webkit-transform 200ms ease-in-out;
+  transition: -moz-transform 200ms ease-in-out;
+  transition: transform 200ms ease-in-out;
+
+  -webkit-transform: translate3d(0, 40px, 0);
+  -moz-transform: translate3d(0, 40px, 0);
+  -o-transform: translate3d(0, 40px, 0);
+  transform: translate3d(0, 40px, 0);
+}
+.upload.show {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
