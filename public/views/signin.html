@@ -1,0 +1,11 @@
+<form class="signin" ng-submit="signin()" ng-class="{'has-error': error}">
+  <div class="form-group">
+    <input type="text" class="form-control" name="username" placeholder="username" ng-model="signinForm.username">
+  </div>
+  <div class="form-group">
+    <input type="password" class="form-control" name="password" placeholder="password" ng-model="signinForm.password">
+  </div>
+
+  <input type="submit" value="Sign in" class="btn btn-default">
+  <span><small><a href="#/users">Register</a></small></span>
+</form>

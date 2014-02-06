@@ -1,0 +1,31 @@
+<div class="row">
+
+  <div class="col-md-8">
+    <ul ng-repeat="video in videos" class="devices list-group">
+      <li class="video list-group-item">
+        <div class="content">
+          <h2>{{video.title}}</h2>
+          <p>{{video.description}}</p>
+        </div>
+        <span class="remove glyphicon glyphicon-remove-circle" ng-click="removeVideo(video._id)"></span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="col-md-4">
+    <form class="new-device" ng-submit="newVideo()" ng-model="newVideoForm">
+      <div class="form-group">
+        <input type="text" class="form-control" name="title" placeholder="Title" ng-model="newVideoForm.title">
+      </div>
+      <div class="form-group">
+        <input type="file" accept="video/*" class="form-control" name="file" ng-model="newVideoForm.file" ng-file-upload>
+      </div>
+      <div class="form-group">
+        <textarea class="form-control" name="description" placeholder="Description" ng-model="newVideoForm.description"></textarea>
+      </div>
+
+      <input type="submit" value="Upload Video" class="btn btn-default">
+    </form>
+  </div>
+
+</div>

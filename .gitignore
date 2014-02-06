@@ -1,0 +1,4 @@
+node_modules
+files/*
+public/bower_components
+public/stylesheets/*.css
