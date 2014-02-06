@@ -6,6 +6,7 @@
         <div class="content">
           <h2>{{video.title}}</h2>
           <p>{{video.description}}</p>
+          <video src="{{video.url}}" width="320" height="240" controls></video>
         </div>
         <span class="remove glyphicon glyphicon-remove-circle" ng-click="removeVideo(video._id)"></span>
       </li>
@@ -13,7 +14,7 @@
   </div>
 
   <div class="col-md-4">
-    <form class="new-device" ng-submit="newVideo()" ng-model="newVideoForm">
+    <form class="new-device" ng-submit="startUpload()" ng-model="newVideoForm">
       <div class="form-group">
         <input type="text" class="form-control" name="title" placeholder="Title" ng-model="newVideoForm.title">
       </div>
@@ -28,4 +29,10 @@
     </form>
   </div>
 
+</div>
+
+<div class="upload" ng-class="{show: hidden}">
+  <div class="progress progress-striped active">
+    <div class="progress-bar" ng-progress></div>
+  </div>
 </div>

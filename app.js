@@ -32,6 +32,11 @@ var Video = new Schema({
     type: String,
     unique: true,
     required: true
+  },
+  url: {
+    type: String,
+    unique: true,
+    required: true
   }
 });
 
@@ -81,7 +86,6 @@ app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(passport.initialize());
 app.use(app.router);
-app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 /* Serve pages */
@@ -143,10 +147,11 @@ app.post('/api/videos',
   function (req, res) {
     var form = new multiparty.Form(),
         fileName = crypto.createHash('sha1'),
-        avconv, args, output, filePath, video;
+        avconv, args, output, filePath, video, url;
 
     fileName.update(Date() + Math.random().toString(36));
-    filePath = path.join(__dirname, 'files/' + fileName.digest('hex') + '.webm');
+    url = '/files/' + fileName.digest('hex') + '.webm';
+    filePath = path.join(__dirname, 'public' + url);
 
     args = ['-i', 'pipe:0', '-f', 'webm', 'pipe:1'];
     avconv = spawn('avconv', args);
@@ -202,7 +207,8 @@ app.post('/api/videos',
       video = new VideoModel({
         title: fields.title[0],
         description: fields.description[0],
-        path: filePath
+        path: filePath,
+        url: url
       });
     });
 });

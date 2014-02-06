@@ -5,6 +5,7 @@ angular.module('ngSampleApp')
 
     $scope.newVideoForm = {};
     $scope.file = null;
+    $scope.progress = 0;
 
     /* REST API actions */
     var videos = $resource(
@@ -60,6 +61,7 @@ angular.module('ngSampleApp')
       xhr.addEventListener('load', function() {
         $scope.$apply(function() {
           if (xhr.status == 200) {
+            $scope.endUpload();
             $scope.videos = xhr.response;
             $scope.newVideoForm = {};
           }
@@ -70,7 +72,9 @@ angular.module('ngSampleApp')
       }, false);
 
       xhr.upload.addEventListener('progress', function (e) {
-        console.log(e.loaded / e.total * 100 + '%');
+        $scope.$apply(function() {
+          $scope.progress = e.loaded / e.total * 100;
+        });
       }, false);
 
       xhr.send(form);
@@ -92,10 +96,32 @@ angular.module('ngSampleApp')
   .directive('ngFileUpload', function() {
     return {
       scope: true,
-      link: function (scope, el, attrs) {
-        el.bind('change', function (e) {
-          scope.$emit('fileSelected', {file: e.target.files[0]});
+      link: function ($scope, $el, $attrs) {
+        $el.bind('change', function (e) {
+          $scope.$emit('fileSelected', {file: e.target.files[0]});
         });
+      }
+    };
+  })
+  .directive('ngProgress', function ($timeout) {
+    return {
+      link: function ($scope, $el, $attrs) {
+        $scope.hidden = false;
+        $scope.$watch('progress', function() {
+          $el[0].style.width = $scope.progress + '%';
+        });
+        $scope.startUpload = function() {
+          $scope.hidden = true;
+          $timeout(function() {
+            $scope.newVideo();
+          }, 200);
+        };
+        $scope.endUpload = function() {
+          $scope.hidden = false;
+          $timeout(function() {
+            $scope.progress = 0;
+          }, 200);
+        };
       }
     };
   });

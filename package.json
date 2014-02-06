@@ -16,7 +16,6 @@
     "passport-localapikey": "0.0.3",
     "node-uuid": "~1.4.1",
     "multiparty": "~3.2.2",
-    "socket.io": "~0.9.16",
-    "stylus": "~0.42.2"
+    "socket.io": "~0.9.16"
   }
 }
