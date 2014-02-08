@@ -28,7 +28,6 @@ var post = function (req, res) {
 
         part.on('end', function() {
           console.log('===== Video has been uploaded! =====');
-          avconv.stdin.end();
         });
       }
     });
@@ -37,7 +36,6 @@ var post = function (req, res) {
 
     avconv.on('exit', function() {
       console.log('===== Conversion done! =====');
-      output.end();
     });
 
     avconv.stderr.on('data', function (data) {
