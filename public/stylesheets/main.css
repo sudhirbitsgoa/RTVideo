@@ -31,17 +31,14 @@ body {
 
   -o-transition: -o-transform 200ms ease-in-out;
   transition: -webkit-transform 200ms ease-in-out;
-  transition: -moz-transform 200ms ease-in-out;
   transition: transform 200ms ease-in-out;
 
   -webkit-transform: translate3d(0, 40px, 0);
-  -moz-transform: translate3d(0, 40px, 0);
   -o-transform: translate3d(0, 40px, 0);
   transform: translate3d(0, 40px, 0);
 }
 .upload.show {
   -webkit-transform: translate3d(0, 0, 0);
-  -moz-transform: translate3d(0, 0, 0);
   -o-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
 }
