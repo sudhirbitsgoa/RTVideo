@@ -1,8 +1,7 @@
 /* Video model */
 
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
-    Comment = require('./comment').schema;
+    Schema = mongoose.Schema;
 
 var Video = new Schema({
   title: {
