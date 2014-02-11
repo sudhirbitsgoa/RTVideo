@@ -26,7 +26,8 @@ var Video = new Schema({
     unique: true,
     required: true
   },
-  comments: Array
+  comments: Array,
+  id: String
 });
 
 module.exports = mongoose.model('Video', Video);

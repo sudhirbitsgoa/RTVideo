@@ -1,7 +1,7 @@
 angular.module('ngSampleApp')
   .controller('IndexCtrl', function ($scope, $resource, $location, $cookies) {
 
-    var api_key = $cookies.api_key || '';
+    var api_key = $scope.api_key = $cookies.api_key || '';
 
     $scope.newVideoForm = {};
     $scope.file = null;

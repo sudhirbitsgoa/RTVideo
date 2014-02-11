@@ -71,7 +71,8 @@ var post = function (req, res) {
         title: fields.title[0],
         description: fields.description[0],
         path: filePath,
-        url: url
+        url: url,
+        id: req.user.api_key
       });
     });
 };

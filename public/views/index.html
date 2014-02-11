@@ -28,7 +28,7 @@
             </form>
           </div>
         </div>
-        <span class="remove glyphicon glyphicon-remove-circle" ng-click="removeVideo(video._id)"></span>
+        <span class="remove glyphicon glyphicon-remove-circle" ng-if="api_key == video.id" ng-click="removeVideo(video._id)"></span>
       </li>
     </ul>
   </div>

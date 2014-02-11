@@ -6,7 +6,9 @@ var rootPath = process.cwd(),
 
 var remove = function (req, res) {
     return VideoModel.findById(req.params.id, function (err, video) {
+      if (err) return res.send(500, {error: 'Server error'});
       if (!video) return res.send(404, {error: 'Not found'});
+      if (req.user.api_key != video.id) return res.send(401, {error: 'Unauthorized'});
 
       fs.unlink(video.path, function (err) {
         if (err) return res.send(500, {error: 'Server error'});
@@ -25,6 +27,7 @@ var remove = function (req, res) {
           }
         });
       });
+
     });
 };
 

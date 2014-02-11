@@ -2,7 +2,7 @@
 
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
-    Video = require('./video');
+    Video = require('./video').schema;
 
 var User = new Schema({
   username: {
@@ -18,8 +18,7 @@ var User = new Schema({
     type: String,
     unique: true,
     required: true
-  },
-  videos: [Video]
+  }
 });
 
 module.exports = mongoose.model('User', User);
