@@ -17,6 +17,7 @@ angular.module('ngSampleApp')
     $scope.signin = function() {
       user.signin($scope.signinForm, function (res) {
         $cookies.api_key = res.api_key;
+        $cookies.username = res.username;
         $location.path('/');
       },
       function (err) {

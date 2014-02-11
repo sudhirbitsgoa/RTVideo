@@ -8,6 +8,6 @@ module.exports = function (req, res) {
     if (err) return res.send(500, {error: 'Server error'});
     if (!user) return res.send(404, {error: 'Not found'});
     if (user.password != req.body.password) return res.send(401, {error: 'Unauthorized'});
-    res.send(200, {api_key: user.api_key});
+    res.send(200, {api_key: user.api_key, username: user.username});
   });
 };

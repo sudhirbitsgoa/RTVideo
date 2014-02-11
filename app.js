@@ -43,6 +43,20 @@ app.delete('/api/videos/:id',
 /* WebSockets API */
 io.sockets.on('connection', function (socket) {
 
+  socket.on('new-comment', function (comment) {
+    routes.api.videos.comments.add(comment, function (err, comments) {
+      if (err) return socket.emit('comments', {error: err.message});
+      io.sockets.emit('comments', comments);
+    });
+  });
+
+  socket.on('comments', function() {
+    routes.api.videos.comments.get(function (err, comments) {
+      if (err) return socket.emit('comments', {error: err.message});
+      socket.emit('comments', comments);
+    });
+  });
+
 });
 
 /* Start Express server */

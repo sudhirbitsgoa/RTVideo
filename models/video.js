@@ -1,7 +1,8 @@
 /* Video model */
 
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+    Schema = mongoose.Schema,
+    Comment = require('./comment').schema;
 
 var Video = new Schema({
   title: {
@@ -25,7 +26,8 @@ var Video = new Schema({
     type: String,
     unique: true,
     required: true
-  }
+  },
+  comments: Array
 });
 
 module.exports = mongoose.model('Video', Video);

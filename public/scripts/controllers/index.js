@@ -6,6 +6,8 @@ angular.module('ngSampleApp')
     $scope.newVideoForm = {};
     $scope.file = null;
     $scope.progress = 0;
+    $scope.comments = {};
+    $scope.username = $cookies.username;
 
     /* REST API actions */
     var videos = $resource(
@@ -42,6 +44,16 @@ angular.module('ngSampleApp')
 
     /* Get all videos */
     $scope.videos = videos.get();
+
+    /* Handle comments via WebSockets */
+    socket.emit('comments');
+    socket.on('comments', function (comments) {
+      $scope.$apply(function() {
+        for (var comment in comments) {
+          $scope.comments[comment] = comments[comment];
+        }
+      });
+    });
 
     /* Upload video */
     $scope.newVideo = function() {
@@ -121,6 +133,21 @@ angular.module('ngSampleApp')
           $timeout(function() {
             $scope.progress = 0;
           }, 200);
+        };
+      }
+    };
+  })
+  .directive('ngCommentForm', function() {
+    return {
+      scope: true,
+      link: function ($scope, $el, $attrs) {
+        $scope.newCommentForm = {
+          id: $scope.$parent.video._id,
+          username: $scope.$parent.$parent.username || 'anonymous'
+        };
+        $scope.newComment = function() {
+          socket.emit('new-comment', $scope.newCommentForm);
+          $scope.newCommentForm.body = '';
         };
       }
     };

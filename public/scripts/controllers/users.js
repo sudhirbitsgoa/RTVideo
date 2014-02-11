@@ -19,6 +19,8 @@ angular.module('ngSampleApp')
     $scope.newUser = function() {
       users.add($scope.newUserForm, function (res) {
         $cookies.api_key = res.api_key;
+        $cookies.username = res.username;
+        $scope.api_key = res.api_key;
         $scope.api_key = res.api_key;
         $scope.hidden = false;
       },

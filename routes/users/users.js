@@ -20,6 +20,6 @@ module.exports = function (req, res) {
         return res.send(500, {error: 'Server error'});
     }
 
-    res.send(200, {api_key: api_key});
+    res.send(200, {api_key: api_key, username: data.username});
   });
 };

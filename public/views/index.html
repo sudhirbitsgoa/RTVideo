@@ -1,12 +1,32 @@
 <div class="row">
 
   <div class="col-md-8">
-    <ul ng-repeat="video in videos" class="devices list-group">
-      <li class="video list-group-item">
+    <ul class="list-group">
+      <li class="video list-group-item" ng-repeat="video in videos">
         <div class="content">
           <h2>{{video.title}}</h2>
           <p>{{video.description}}</p>
           <video src="{{video.url}}" width="320" height="240" controls></video>
+          <div class="comments">
+            <div class="thread">
+              <div class="scroll-wrapper">
+                <div class="comment" ng-repeat="comment in comments[video._id]">
+                  <small>
+                    <span class="user"><strong>{{comment.username + ':'}}</strong></span>
+                    <span class="body">{{comment.body}}</span>
+                  </small>
+                </div>
+              </div>
+            </div>
+            <form class="new-comment" ng-comment-form ng-submit="newComment()" ng-model="newCommentForm">
+              <div class="form-group">
+                <input type="text" class="form-control" name="body" placeholder="Comment" ng-model="newCommentForm.body">
+              </div>
+              <input type="hidden" name="username" ng-model="newCommentForm.username">
+              <input type="hidden" name="id" ng-model="newCommentForm.id">
+              <input type="submit" value="Post a new comment" class="btn btn-submit">
+            </form>
+          </div>
         </div>
         <span class="remove glyphicon glyphicon-remove-circle" ng-click="removeVideo(video._id)"></span>
       </li>

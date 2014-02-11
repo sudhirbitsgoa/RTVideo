@@ -3,5 +3,6 @@
 module.exports = {
   get: require('./get'),
   post: require('./post'),
-  remove: require('./remove')
+  remove: require('./remove'),
+  comments: require('./comments')
 };
