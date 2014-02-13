@@ -1,8 +1,7 @@
 /* User model */
 
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
-    Video = require('./video').schema;
+    Schema = mongoose.Schema;
 
 var User = new Schema({
   username: {

@@ -16,10 +16,10 @@ var post = function (req, res) {
     url = '/files/' + fileName.digest('hex') + '.webm';
     filePath = rootPath + '/public' + url;
 
-    args = ['-i', 'pipe:0', '-f', 'webm', '-threads', '2', '-s', 'hd480',
+    args = ['-i', 'pipe:0', '-f', 'webm', '-s', 'hd480',
             '-ab', '96k', '-vb', '600k', 'pipe:1'];
 
-    avconv = spawn('avconv', args);
+    avconv = spawn('avconv', args); // If no avconc, use ffmpeg instead
     output = fs.createWriteStream(filePath);
 
     form.on('part', function (part) {
