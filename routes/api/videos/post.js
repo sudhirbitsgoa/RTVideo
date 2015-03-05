@@ -11,7 +11,7 @@ var post = function (req, res) {
     var form = new multiparty.Form(),
         fileName = crypto.createHash('sha1'),
         avconv, args, output, filePath, video, url;
-
+    console.log("this is called");
     fileName.update(Date() + Math.random().toString(36));
     url = '/files/' + fileName.digest('hex') + '.webm';
     filePath = rootPath + '/public' + url;
@@ -19,7 +19,7 @@ var post = function (req, res) {
     args = ['-i', 'pipe:0', '-f', 'webm', '-s', 'hd480',
             '-ab', '96k', '-vb', '600k', 'pipe:1'];
 
-    avconv = spawn('avconv', args); // If no avconc, use ffmpeg instead
+    avconv = spawn('ffmpeg', args); // If no avconc, use ffmpeg instead
     output = fs.createWriteStream(filePath);
 
     form.on('part', function (part) {

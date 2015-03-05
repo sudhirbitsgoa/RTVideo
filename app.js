@@ -3,8 +3,8 @@ var express = require('express'),
     mongoose = require('mongoose'),
     passport = require('passport'),
     LocalAPIKeyStrategyAuth = require('./strategies').LocalAPIKeyStrategyAuth,
-    routes = require('./routes');
-
+    routes = require('./routes'),
+    multer = require('multer');
 /* Connect to db */
 mongoose.connect('mongodb://localhost/rt-video');
 
@@ -25,7 +25,9 @@ app.use(express.methodOverride());
 app.use(passport.initialize());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(multer({
+    dest: path.join(__dirname, 'public')
+}));
 /* Render pages */
 app.get('/', routes.home);
 
