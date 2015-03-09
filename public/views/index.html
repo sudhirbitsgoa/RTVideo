@@ -47,6 +47,18 @@
 
       <input type="submit" value="Upload Video" class="btn btn-default">
     </form>
+
+    <div>
+      <b> Recent Videos </b>
+      <ul class="list-group">
+        <li class="video list-group-item" ng-repeat="video in videos | reverse">
+          <div class="content">
+            <video src="{{video.url}}" width="220" height="140" controls></video>
+          </div>
+          <span class="remove glyphicon glyphicon-remove-circle" ng-if="api_key == video.id" ng-click="removeVideo(video._id)"></span>
+        </li>
+      </ul>
+    </div>
   </div>
 
 </div>

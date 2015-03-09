@@ -11,7 +11,6 @@ var post = function (req, res) {
     var form = new multiparty.Form(),
         fileName = crypto.createHash('sha1'),
         avconv, args, output, filePath, video, url;
-    console.log("this is called");
     fileName.update(Date() + Math.random().toString(36));
     url = '/files/' + fileName.digest('hex') + '.webm';
     filePath = rootPath + '/public' + url;
