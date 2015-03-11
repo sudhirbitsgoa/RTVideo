@@ -1,5 +1,6 @@
 /* API entities */
 
 module.exports = {
-  videos: require('./videos')
+  videos: require('./videos'),
+  youtube: require('./youtube')
 };

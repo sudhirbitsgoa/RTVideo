@@ -2,5 +2,6 @@
 
 module.exports = {
   VideoModel: require('./video'),
-  UserModel: require('./user')
+  UserModel: require('./user'),
+  YoutubeModel: require('./youtube')
 };

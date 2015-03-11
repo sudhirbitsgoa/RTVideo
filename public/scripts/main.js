@@ -2,7 +2,8 @@ angular.module('ngSampleApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
-  'ngRoute'
+  'ngRoute',
+  'youtube-embed'
 ])
   .config(function ($routeProvider) {
     $routeProvider
