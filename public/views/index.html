@@ -32,9 +32,9 @@
       </li>
     </ul>
   
-  <youtube id="2tmc8rJgxUI" width="320" height="240"></youtube>
-  <youtube id="haxusGuUyt4" width="320" height="240"></youtube>
-  <youtube id="2tmc8rJgxUI" width="320" height="240"></youtube>
+  <li class="video list-group-item" ng-repeat="video in code">
+    <div my-youtube code="video"></div>
+  </li>
   </div>
   <div class="col-md-4">
     <form class="new-device" ng-submit="startUpload()" ng-model="newVideoForm">
@@ -49,6 +49,13 @@
       </div>
 
       <input type="submit" value="Upload Video" class="btn btn-default">
+    </form><br>
+
+    <form class="new-device" ng-submit="embedYoutube()" ng-model="newYoutubeForm">
+      <div class="form-group">
+        <input type="text" class="form-control" name="videoCode" placeholder="Youtube Id" ng-model="newYoutubeForm.videoCode">
+      </div>
+      <input type="submit" value="Embed Video" class="btn btn-default">
     </form>
 
     <div>

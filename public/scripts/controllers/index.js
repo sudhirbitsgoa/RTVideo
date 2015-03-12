@@ -1,13 +1,15 @@
 angular.module('ngSampleApp')
-  .controller('IndexCtrl', function ($scope, $resource, $location, $cookies) {
+  .controller('IndexCtrl', function ($scope, $resource, $location, $cookies,RESTfactory) {
 
     var api_key = $scope.api_key = $cookies.api_key || '';
 
     $scope.newVideoForm = {};
     $scope.file = null;
+    $scope.newYoutubeForm = {};
     $scope.progress = 0;
     $scope.comments = {};
     $scope.username = $cookies.username;
+    $scope.youtubeVideo =[];
 
     /* REST API actions */
     var videos = $resource(
@@ -104,6 +106,28 @@ angular.module('ngSampleApp')
           }
         });
     };
+
+    /*embed youtube video*/
+    $scope.embedYoutube = function(){
+      RESTfactory.postYoutube({"title":"test","description":"this is youtube","filePath":"/usr/lib/","path":$scope.newYoutubeForm.videoCode})
+      .then(function(data){
+          $scope.getYoutubeVideos();
+          $scope.newYoutubeForm.videoCode = "";
+        })
+    }
+    $scope.code = [];
+    $scope.getYoutubeVideos = function(){
+      RESTfactory.getYoutube()
+      .then(function(data){
+          $scope.code = [];
+          $scope.youtubeVideo=data.data || [];
+          $scope.youtubeVideo.forEach(function(video){
+            $scope.code.push(video.path);
+          })
+        })
+    };
+    $scope.getYoutubeVideos();
+    
   })
   .directive('ngFileUpload', function() {
     return {
@@ -156,4 +180,14 @@ angular.module('ngSampleApp')
     return function(items) {
       return items.slice().reverse();
     };
+  })
+  .factory('RESTfactory',function($http,$cookies){
+    return {
+      postYoutube : function(data){
+        return $http.post('/api/videos/youtube?apikey=' + $cookies.api_key,data);
+      },
+      getYoutube : function(){
+        return $http.get('/api/videos/youtube?apikey=' + $cookies.api_key);
+      }
+    }
   });

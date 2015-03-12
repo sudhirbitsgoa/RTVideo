@@ -14,16 +14,17 @@ var post = function (req, res) {
     fileName.update(Date() + Math.random().toString(36));
     url = '/files/' + fileName.digest('hex') + '.webm';
     filePath = rootPath + '/public' + url;
-
+    console.log("this is body",req.body);
     video = new VideoModel({
       title: req.body.title,
       description: req.body.description,
-      path: req.body.filePath,
+      path: req.body.path,
       url: url,
-      id: "afa" || req.user.api_key
+      id: req.user.api_key
     });
 
     video.save(function (err) {
+      console.log("this is error",err);
       if (!err) {
         return VideoModel.find(function (err, videos) {
           if (!err) {

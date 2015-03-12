@@ -41,7 +41,10 @@ app.post('/api/videos',
   passport.authenticate('localapikey', {session: false}), routes.api.videos.post);
 app.delete('/api/videos/:id',
   passport.authenticate('localapikey', {session: false}), routes.api.videos.remove);
-app.post('/api/videos/youtube', routes.api.youtube.post);
+app.post('/api/videos/youtube',
+  passport.authenticate('localapikey', {session: false}), routes.api.youtube.post);
+app.get('/api/videos/youtube',
+  passport.authenticate('localapikey', {session: false}), routes.api.youtube.get);
 
 
 /* WebSockets API */

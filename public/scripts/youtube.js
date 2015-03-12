@@ -27,37 +27,21 @@ youtube.factory('youtubeEmbed', ['$document', '$q', '$rootScope', function($docu
 
 }]);
 
-youtube.directive('youtube', ['youtubeEmbed', '$window', function(youtubeEmbed, $window){
-	return {
-		restrict: 'E',
-		template: '<div id="player"></div>',
-		link: function(scope, element, attrs){
-			youtubeEmbed.yt().then(function(yt){
-				$window.onYouTubePlayerAPIReady = function(){
-					scope.player = new YT.Player('player', {
-						height: attrs.height,
-						width: attrs.width,
-						videoId: attrs.id
-					});
 
-					scope.$watch(function(){ return attrs.id;}, function(newVal){
-						var videoId = newVal;
-						console.log(videoId);
-						scope.player = scope.createPlayer(attrs);
-					});
 
-					scope.createPlayer = function(attrs){
-						if(scope.player) scope.player.destroy();
-						return new YT.Player('player', {
-							height: attrs.height,
-							width: attrs.width,
-							videoId: attrs.id
-						});
-					}
 
-				}
-
-			});
-		}
-	};
-}]);
+youtube.directive('myYoutube', function($sce) {
+  return {
+    restrict: 'EA',
+    scope: { code:'=' },
+    replace: true,
+    template: '<div style="height:400px;"><iframe style="overflow:hidden;height:100%;width:100%" width="100%" height="100%" src="{{url}}" frameborder="0" allowfullscreen></iframe></div>',
+    link: function (scope) {
+        scope.$watch('code', function (newVal) {
+           if (newVal) {
+               scope.url = $sce.trustAsResourceUrl("http://www.youtube.com/embed/" + newVal);
+           }
+        });
+    }
+  };
+});
