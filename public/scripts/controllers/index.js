@@ -110,7 +110,12 @@ angular.module('ngSampleApp')
     /*embed youtube video*/
     $scope.embedYoutube = function(){
       RESTfactory.postYoutube({"title":"test","description":"this is youtube","filePath":"/usr/lib/","path":$scope.newYoutubeForm.videoCode})
-      .then(function(data){
+      .then(function(data,status){
+          console.log("this is the status",status,data);
+          if(status==401){
+            $location.path('/signin');
+            return;
+          }
           $scope.getYoutubeVideos();
           $scope.newYoutubeForm.videoCode = "";
         })
@@ -118,7 +123,8 @@ angular.module('ngSampleApp')
     $scope.code = [];
     $scope.getYoutubeVideos = function(){
       RESTfactory.getYoutube()
-      .then(function(data){
+      .then(function(data,status){
+          
           $scope.code = [];
           $scope.youtubeVideo=data.data || [];
           $scope.youtubeVideo.forEach(function(video){
@@ -181,13 +187,27 @@ angular.module('ngSampleApp')
       return items.slice().reverse();
     };
   })
-  .factory('RESTfactory',function($http,$cookies){
+  .factory('RESTfactory',function($http,$cookies,$location){
     return {
       postYoutube : function(data){
-        return $http.post('/api/videos/youtube?apikey=' + $cookies.api_key,data);
+        return $http.post('/api/videos/youtube?apikey=' + $cookies.api_key,data)
+        .error(function(data,status){
+          console.log("this is the status",status);
+          if(status==401){
+            $location.path('/signin');
+            return;
+          }
+        })
       },
       getYoutube : function(){
-        return $http.get('/api/videos/youtube?apikey=' + $cookies.api_key);
+        return $http.get('/api/videos/youtube?apikey=' + $cookies.api_key)
+        .error(function(data,status){
+          console.log("this is the status",status);
+          if(status==401){
+            $location.path('/signin');
+            return;
+          }
+        })
       }
     }
   });
