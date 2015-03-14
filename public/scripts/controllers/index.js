@@ -111,7 +111,6 @@ angular.module('ngSampleApp')
     $scope.embedYoutube = function(){
       RESTfactory.postYoutube({"title":"test","description":"this is youtube","filePath":"/usr/lib/","path":$scope.newYoutubeForm.videoCode})
       .then(function(data,status){
-          console.log("this is the status",status,data);
           if(status==401){
             $location.path('/signin');
             return;
@@ -132,6 +131,10 @@ angular.module('ngSampleApp')
           })
         })
     };
+
+    $scope.random = function() {
+        return 0.5 - Math.random();
+    }
     $scope.getYoutubeVideos();
     
   })

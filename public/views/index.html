@@ -32,7 +32,7 @@
       </li>
     </ul>
   
-  <li class="video list-group-item" ng-repeat="video in code">
+  <li class="video list-group-item" ng-repeat="video in code | orderBy:random">
     <div my-youtube code="video"></div>
   </li>
   </div>
