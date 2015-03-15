@@ -1,5 +1,5 @@
 angular.module('ngSampleApp')
-  .controller('IndexCtrl', function ($scope, $resource, $location, $cookies,RESTfactory) {
+  .controller('IndexCtrl', function ($scope, $resource, $location, $cookies,RESTfactory,$rootScope) {
 
     var api_key = $scope.api_key = $cookies.api_key || '';
 
@@ -10,6 +10,14 @@ angular.module('ngSampleApp')
     $scope.comments = {};
     $scope.username = $cookies.username;
     $scope.youtubeVideo =[];
+
+
+    $rootScope.options = [
+    { label: 'drama', value: 1 },
+    { label: 'comedy', value: 2 }
+    ];
+    
+    $rootScope.Selected = $scope.Selected = $rootScope.options[1];
 
     /* REST API actions */
     var videos = $resource(
@@ -109,25 +117,27 @@ angular.module('ngSampleApp')
 
     /*embed youtube video*/
     $scope.embedYoutube = function(){
-      RESTfactory.postYoutube({"title":"test","description":"this is youtube","filePath":"/usr/lib/","path":$scope.newYoutubeForm.videoCode})
+      RESTfactory.postYoutube({"title":"test","description":"this is youtube","category":$scope.Selected.label,"path":$scope.newYoutubeForm.videoCode})
       .then(function(data,status){
           if(status==401){
             $location.path('/signin');
             return;
           }
-          $scope.getYoutubeVideos();
+          $scope.getYoutubeVideos($scope.Selected.label);
           $scope.newYoutubeForm.videoCode = "";
         })
     }
-    $scope.code = [];
-    $scope.getYoutubeVideos = function(){
-      RESTfactory.getYoutube()
+    $rootScope.code = [];
+    $scope.getYoutubeVideos = function(category){
+      category = category || $scope.Selected.label;
+      RESTfactory.getYoutube(category)
       .then(function(data,status){
           
-          $scope.code = [];
+          $rootScope.code = [];
           $scope.youtubeVideo=data.data || [];
           $scope.youtubeVideo.forEach(function(video){
-            $scope.code.push(video.path);
+            $rootScope.code.push(video.path);
+            $location.path('/');
           })
         })
     };
@@ -135,7 +145,7 @@ angular.module('ngSampleApp')
     $scope.random = function() {
         return 0.5 - Math.random();
     }
-    $scope.getYoutubeVideos();
+    $scope.getYoutubeVideos($scope.Selected.label);
     
   })
   .directive('ngFileUpload', function() {
@@ -202,8 +212,8 @@ angular.module('ngSampleApp')
           }
         })
       },
-      getYoutube : function(){
-        return $http.get('/api/videos/youtube?apikey=' + $cookies.api_key)
+      getYoutube : function(category){
+        return $http.get('/api/videos/youtube?category='+category+'&apikey=' + $cookies.api_key)
         .error(function(data,status){
           console.log("this is the status",status);
           if(status==401){

@@ -90,3 +90,7 @@ video {
   bottom: 0;
   width: 100%;
 }
+.new-device {
+  display : flex;
+  margin-top : 7px;
+}

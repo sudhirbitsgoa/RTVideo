@@ -12,15 +12,16 @@ var post = function (req, res) {
         fileName = crypto.createHash('sha1'),
         avconv, args, output, filePath, video, url;
     fileName.update(Date() + Math.random().toString(36));
-    url = '/files/' + fileName.digest('hex') + '.webm';
-    filePath = rootPath + '/public' + url;
+    category = req.body.category;
+    filePath = rootPath + '/public' + Math.random().toString(36);
     console.log("this is body",req.body);
     video = new VideoModel({
       title: req.body.title,
       description: req.body.description,
       path: req.body.path,
-      url: url,
-      id: req.user.api_key
+      category: category,
+      url : filePath,
+      id : req.user.api_key
     });
 
     video.save(function (err) {

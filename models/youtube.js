@@ -27,6 +27,7 @@ var Youtube = new Schema({
     required: true
   },
   comments: Array,
+  category:String,
   id: String
 });
 

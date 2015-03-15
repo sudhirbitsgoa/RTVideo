@@ -23,7 +23,7 @@ var Video = new Schema({
   },
   url: {
     type: String,
-    unique: true,
+    unique: false,
     required: true
   },
   comments: Array,

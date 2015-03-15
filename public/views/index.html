@@ -1,7 +1,7 @@
-<div class="row">
+<div class="row" ng-controller="IndexCtrl">
 
   <div class="col-md-8">
-    <ul class="list-group">
+    <!--ul class="list-group">
       <li class="video list-group-item" ng-repeat="video in videos">
         <div class="content">
           <h2>{{video.title}}</h2>
@@ -30,14 +30,14 @@
         </div>
         <span class="remove glyphicon glyphicon-remove-circle" ng-if="api_key == video.id" ng-click="removeVideo(video._id)"></span>
       </li>
-    </ul>
+    </ul-->
   
-  <li class="video list-group-item" ng-repeat="video in code | orderBy:random">
+  <li class="video list-group-item" ng-repeat="video in code ">
     <div my-youtube code="video"></div>
   </li>
   </div>
   <div class="col-md-4">
-    <form class="new-device" ng-submit="startUpload()" ng-model="newVideoForm">
+    <!--form class="new-device" ng-submit="startUpload()" ng-model="newVideoForm">
       <div class="form-group">
         <input type="text" class="form-control" name="title" placeholder="Title" ng-model="newVideoForm.title">
       </div>
@@ -49,16 +49,11 @@
       </div>
 
       <input type="submit" value="Upload Video" class="btn btn-default">
-    </form><br>
+    </form--><br>
 
-    <form class="new-device" ng-submit="embedYoutube()" ng-model="newYoutubeForm">
-      <div class="form-group">
-        <input type="text" class="form-control" name="videoCode" placeholder="Youtube Id" ng-model="newYoutubeForm.videoCode">
-      </div>
-      <input type="submit" value="Embed Video" class="btn btn-default">
-    </form>
 
-    <div>
+
+    <!--div>
       <b> Recent Videos </b>
       <ul class="list-group">
         <li class="video list-group-item" ng-repeat="video in videos | reverse">
@@ -68,7 +63,7 @@
           <span class="remove glyphicon glyphicon-remove-circle" ng-if="api_key == video.id" ng-click="removeVideo(video._id)"></span>
         </li>
       </ul>
-    </div>
+    </div-->
   </div>
 
 </div>
