@@ -12,6 +12,23 @@ angular.module('ngSampleApp')
     $scope.youtubeVideo =[];
 
 
+    var shuffleArray = function(array) {
+      var m = array.length, t, i;
+
+      // While there remain elements to shuffle
+      while (m) {
+        // Pick a remaining element…
+        i = Math.floor(Math.random() * m--);
+
+        // And swap it with the current element.
+        t = array[m];
+        array[m] = array[i];
+        array[i] = t;
+      }
+
+      return array;
+    }
+
     $rootScope.options = [
     { label: 'drama', value: 1 },
     { label: 'comedy', value: 2 }
@@ -138,7 +155,8 @@ angular.module('ngSampleApp')
           $scope.youtubeVideo.forEach(function(video){
             $rootScope.code.push(video.path);
             $location.path('/');
-          })
+          });
+          $scope.shuffleArray = shuffleArray($rootScope.code); 
         })
     };
 
