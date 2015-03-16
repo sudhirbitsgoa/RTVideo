@@ -5,7 +5,11 @@ var rootPath = process.cwd(),
 
 var get = function (req, res) {
 	var query = req.query.category ;
-  return YoutubeModel.find({category:req.query.category},function (err, videos) {
+	var queryObj = {category:req.query.category};
+	if(query == 'all'){
+		var queryObj = {}
+	}
+  return YoutubeModel.find(queryObj,function (err, videos) {
     if (!err) {
       return res.send(200, videos);
     } else {

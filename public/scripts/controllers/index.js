@@ -29,9 +29,11 @@ angular.module('ngSampleApp')
       return array;
     }
 
-    $rootScope.options = [
+    $rootScope.options = $scope.options = [
     { label: 'drama', value: 1 },
-    { label: 'comedy', value: 2 }
+    { label: 'comedy', value: 2 },
+    { label: 'science', value: 3 },
+    { label: 'fiction', value: 4 }
     ];
     
     $rootScope.Selected = $scope.Selected = $rootScope.options[1];
@@ -140,13 +142,14 @@ angular.module('ngSampleApp')
             $location.path('/signin');
             return;
           }
-          $scope.getYoutubeVideos($scope.Selected.label);
+          $scope.getYoutubeVideos();
           $scope.newYoutubeForm.videoCode = "";
         })
     }
     $rootScope.code = [];
     $scope.getYoutubeVideos = function(category){
-      category = category || $scope.Selected.label;
+      $scope.dropdown = "dropdown";
+      category = category || "all" || $scope.Selected.label;
       RESTfactory.getYoutube(category)
       .then(function(data,status){
           
@@ -163,7 +166,18 @@ angular.module('ngSampleApp')
     $scope.random = function() {
         return 0.5 - Math.random();
     }
-    $scope.getYoutubeVideos($scope.Selected.label);
+    $scope.getYoutubeVideos();
+
+    $scope.dropdown = "dropdown";
+
+    $scope.toggle = function(){
+      if($scope.dropdown == "dropdown"){
+        $scope.dropdown = "dropdown open";
+      }else{
+        $scope.dropdown = "dropdown";
+      }
+    }
+
     
   })
   .directive('ngFileUpload', function() {
